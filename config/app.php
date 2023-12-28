@@ -162,7 +162,7 @@ return [
 
         Collective\Html\HtmlServiceProvider::class,
         RealRashid\SweetAlert\SweetAlertServiceProvider::class,
-
+        Spatie\LaravelIgnition\IgnitionServiceProvider::class,
     ],
 
     /*
