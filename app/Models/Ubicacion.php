@@ -1,25 +1,20 @@
 <?php
 
-namespace App\Http\Models;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Auth;
 
-use App\Http\Helpers\GenerarLogs;
-
-
-class Persona extends Model
+class Ubicacion extends Model
 {
-
     use SoftDeletes;
-
     /**
      * The table associated with the model.
      *
      * @var string
      */
-    protected $table = 'personas';
+    protected $table = 'ubicacion';
 
 
     /**
@@ -35,21 +30,11 @@ class Persona extends Model
      * @var array
      */
     protected $fillable = [
-        'perCurp',
-        'perApellido1',
-        'perApellido2',
-        'perNombre',
-        'perFechaNac',
+        'ubiClave',
+        'ubiNombre',
+        'ubiCalle',
+        'ubiCP',
         'municipio_id',
-        'perSexo',
-        'perCorreo1',
-        'perTelefono1',
-        'perTelefono2',
-        'perDirCP',
-        'perDirCalle',
-        'perDirNumInt',
-        'perDirNumExt',
-        'perDirColonia',
         'usuario_at'
     ];
 
@@ -57,7 +42,7 @@ class Persona extends Model
         'deleted_at',
     ];
 
-     /**
+    /**
    * Override parent boot and Call deleting event
    *
    * @return void
@@ -65,19 +50,18 @@ class Persona extends Model
    protected static function boot()
    {
      parent::boot();
-     
-   }
-   
-    public function empleado()
-    {
-        return $this->hasOne(Empleado::class);
-    }
 
-    public function municipio()
+   }
+
+   public function municipio()
     {
         return $this->belongsTo(Municipio::class);
     }
 
+    public function departamentos()
+    {
+        return $this->hasMany(Departamento::class);
+    }
 
 
 }

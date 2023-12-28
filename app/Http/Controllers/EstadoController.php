@@ -15,8 +15,8 @@ use URL;
 use Validator;
 use Debugbar;
 
-use App\Http\Models\Estado;
-use App\Http\Models\Pais;
+use App\Models\Estado;
+use App\Models\Pais;
 
 class EstadoController extends Controller
 {
@@ -40,7 +40,7 @@ class EstadoController extends Controller
     {
         $estados = Estado::select('estados.id as estado_id','estados.edoNombre','estados.edoAbrevia','estados.edoRenapo'
         ,'estados.edoISO','paises.paisNombre')->join('paises','estados.pais_id','paises.id')->where('estados.id','!=',0)->get();
-      
+
         return Datatables::of($estados)
         ->addColumn('action',function($query){
             return '<a href="estados/'.$query->estado_id.'" class="button button--icon js-button js-ripple-effect" title="Ver">

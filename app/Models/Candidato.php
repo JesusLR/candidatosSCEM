@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Models;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -81,7 +81,7 @@ class Candidato extends Model
    {
      parent::boot();
 
-    
+
    }
 
     public function ubicacion()
@@ -99,7 +99,7 @@ class Candidato extends Model
         return $this->hasMany(Escuela::class);
     }
 
-    
+
     public function director()
     {
         return $this->hasMany(Empleado::class);
@@ -109,7 +109,7 @@ class Candidato extends Model
     public function programas(){
         return $this->hasMany(Programa::class);
     }
-    
+
     public function coordinador(){
         return $this->hasMany(Empleado::class);
     }

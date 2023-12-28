@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Models;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Auth;
 
-class Municipio extends Model
+class Pais extends Model
 {
 
     use SoftDeletes;
@@ -15,7 +15,7 @@ class Municipio extends Model
      *
      * @var string
      */
-    protected $table = 'municipios';
+    protected $table = 'paises';
 
     /**
      * The attributes that are not mass assignable.
@@ -30,8 +30,8 @@ class Municipio extends Model
      * @var array
      */
     protected $fillable = [
-        'estado_id',
-        'munNombre',
+        'paisNombre',
+        'paisAbrevia',
         'usuario_at'
     ];
 
@@ -39,7 +39,7 @@ class Municipio extends Model
         'deleted_at',
     ];
 
-    /**
+     /**
    * Override parent boot and Call deleting event
    *
    * @return void
@@ -47,28 +47,12 @@ class Municipio extends Model
    protected static function boot()
    {
      parent::boot();
-        
+
+
    }
 
-   public function ubicaciones()
+    public function estados()
     {
-        return $this->hasMany(Ubicacion::class);
+        return $this->hasMany(Estado::class);
     }
-
-    public function estado()
-    {
-        return $this->belongsTo(Estado::class);
-    }
-
-    public function persona()
-    {
-        return $this->hasOne(Persona::class);
-    }
-
-    public static function municipios($id){
-        return  Municipio::where('estado_id','=',$id)
-        ->whereNotIn( 'id', [268])
-        ->orderBy('munNombre')->get();
-    }
-
 }
