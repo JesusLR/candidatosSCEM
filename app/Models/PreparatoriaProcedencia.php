@@ -1,12 +1,15 @@
 <?php
 
-namespace App\Http\Models;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Auth;
 
-class Programa extends Model
+use App\Http\Helpers\GenerarLogs;
+
+
+class PreparatoriaProcedencia extends Model
 {
 
     use SoftDeletes;
@@ -16,7 +19,7 @@ class Programa extends Model
      *
      * @var string
      */
-    protected $table = 'programas';
+    protected $table = 'preparatorias';
 
 
     /**
@@ -32,14 +35,9 @@ class Programa extends Model
      * @var array
      */
     protected $fillable = [
-        'escuela_id',
-        'empleado_id',
-        'progClave',
-        'progNombre',
-        'progNombreCorto',
-        'progClaveSegey',
-        'progClaveEgre',
-        'progTituloOficial',
+        'municipio_id',
+        'prepNombre',
+        'prepHomologada',
         'usuario_at'
     ];
 
@@ -47,31 +45,26 @@ class Programa extends Model
         'deleted_at',
     ];
 
-      /**
+    protected $casts = [
+        'aluClave' => 'integer',
+    ];
+
+    /**
    * Override parent boot and Call deleting event
    *
    * @return void
    */
    protected static function boot()
    {
-     parent::boot();
-    
+      parent::boot();
+
    }
 
-   public function empleado()
-    {
-        return $this->belongsTo(Empleado::class);
-    }
 
-    public function escuela()
-    {
-        return $this->belongsTo(Escuela::class);
-    }
 
-    public function planes()
-    {
-        return $this->hasMany(Plan::class);
-    }
-
+   public function municipio()
+   {
+       return $this->belongsTo(Municipio::class);
+   }
 
 }

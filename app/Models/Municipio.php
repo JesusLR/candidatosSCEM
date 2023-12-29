@@ -1,21 +1,21 @@
 <?php
 
-namespace App\Http\Models;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Auth;
 
-class Ubicacion extends Model
+class Municipio extends Model
 {
+
     use SoftDeletes;
     /**
-     * The table associated with the model.
+     * The database table used by the model.
      *
      * @var string
      */
-    protected $table = 'ubicacion';
-
+    protected $table = 'municipios';
 
     /**
      * The attributes that are not mass assignable.
@@ -30,11 +30,8 @@ class Ubicacion extends Model
      * @var array
      */
     protected $fillable = [
-        'ubiClave',
-        'ubiNombre',
-        'ubiCalle',
-        'ubiCP',
-        'municipio_id',
+        'estado_id',
+        'munNombre',
         'usuario_at'
     ];
 
@@ -50,18 +47,28 @@ class Ubicacion extends Model
    protected static function boot()
    {
      parent::boot();
-    
+
    }
 
-   public function municipio()
+   public function ubicaciones()
     {
-        return $this->belongsTo(Municipio::class);
+        return $this->hasMany(Ubicacion::class);
     }
 
-    public function departamentos()
+    public function estado()
     {
-        return $this->hasMany(Departamento::class);
+        return $this->belongsTo(Estado::class);
     }
 
+    public function persona()
+    {
+        return $this->hasOne(Persona::class);
+    }
+
+    public static function municipios($id){
+        return  Municipio::where('estado_id','=',$id)
+        ->whereNotIn( 'id', [268])
+        ->orderBy('munNombre')->get();
+    }
 
 }

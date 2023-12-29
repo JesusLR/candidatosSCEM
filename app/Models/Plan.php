@@ -1,21 +1,23 @@
 <?php
 
-namespace App\Http\Models;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Auth;
 
-class Estado extends Model
+class Plan extends Model
 {
+
     use SoftDeletes;
 
     /**
-     * The database table used by the model.
+     * The table associated with the model.
      *
      * @var string
      */
-    protected $table = 'estados';
+    protected $table = 'planes';
+
 
     /**
      * The attributes that are not mass assignable.
@@ -30,19 +32,19 @@ class Estado extends Model
      * @var array
      */
     protected $fillable = [
-        'pais_id',
-        'edoNombre',
-        'edoAbrevia',
-        'edoRenapo',
-        'edoISO',
+        'programa_id',
+        'planClave',
+        'planPeriodos',
+        'planNumCreditos',
+        'planEstado',
         'usuario_at'
     ];
 
     protected $dates = [
         'deleted_at',
     ];
-    
-      /**
+
+    /**
    * Override parent boot and Call deleting event
    *
    * @return void
@@ -50,20 +52,17 @@ class Estado extends Model
    protected static function boot()
    {
      parent::boot();
-     
    }
 
-    public function pais()
+   public function programa()
+   {
+      return $this->belongsTo(Programa::class);
+   }
+
+    public function acuerdos()
     {
-        return $this->belongsTo(Pais::class);
+      return $this->hasMany(Acuerdo::class);
     }
 
-    public function municipios()
-    {
-        return $this->hasMany(Municipio::class);
-    }
 
-    public static function estados($id){
-        return  Estado::where('pais_id','=',$id)->orderBy("edoNombre")->get();
-    }
 }

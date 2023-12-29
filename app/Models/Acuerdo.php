@@ -1,15 +1,13 @@
 <?php
 
-namespace App\Http\Models;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Auth;
 
-use App\Http\Helpers\GenerarLogs;
 
-
-class PreparatoriaProcedencia extends Model
+class Acuerdo extends Model
 {
 
     use SoftDeletes;
@@ -19,7 +17,7 @@ class PreparatoriaProcedencia extends Model
      *
      * @var string
      */
-    protected $table = 'preparatorias';
+    protected $table = 'acuerdos';
 
 
     /**
@@ -35,36 +33,29 @@ class PreparatoriaProcedencia extends Model
      * @var array
      */
     protected $fillable = [
-        'municipio_id',
-        'prepNombre',
-        'prepHomologada',
-        'usuario_at'
+        'plan_id',
+        'acuNumero',
+        'acuFecha',
+        'acuEstadoPlan'
     ];
 
     protected $dates = [
         'deleted_at',
     ];
 
-    protected $casts = [
-        'aluClave' => 'integer',
-    ];
-
-    /**
+     /**
    * Override parent boot and Call deleting event
    *
    * @return void
    */
    protected static function boot()
    {
-      parent::boot();
-
+     parent::boot();
    }
 
-
-       
-   public function municipio()
-   {
-       return $this->belongsTo(Municipio::class);
-   }
+    public function plan()
+    {
+        return $this->belongsTo(Plan::class);
+    }
 
 }

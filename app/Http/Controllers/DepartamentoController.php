@@ -14,7 +14,7 @@ use URL;
 use Validator;
 use Debugbar;
 
-use App\Http\Models\Departamento;
+use App\Models\Departamento;
 
 class DepartamentoController extends Controller
 {

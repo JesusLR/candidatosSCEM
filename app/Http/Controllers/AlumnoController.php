@@ -7,7 +7,7 @@ use Validator;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
-use App\Http\Models\PreparatoriaProcedencia;
+use App\Models\PreparatoriaProcedencia;
 
 
 class AlumnoController extends Controller

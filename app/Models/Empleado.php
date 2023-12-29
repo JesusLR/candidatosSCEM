@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Models;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -59,7 +59,7 @@ class Empleado extends Model
    protected static function boot()
    {
      parent::boot();
-    
+
    }
 
     public function escuela()
